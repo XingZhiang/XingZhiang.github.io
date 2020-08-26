@@ -21,7 +21,7 @@
   <entry>
     <title>我的第一篇blog</title>
     <url>/2020/08/15/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87blog/</url>
-    <content><![CDATA[<h1 id="这是一篇测试blog"><a href="#这是一篇测试blog" class="headerlink" title="这是一篇测试blog"></a>这是一篇测试blog</h1><p>主要测试标签和分类功能的使用<br><img src="http://a1.att.hudong.com/11/28/300000764046130888288666357.jpg" alt="风景"></p>
+    <content><![CDATA[<h1 id="这是一篇测试blog"><a href="#这是一篇测试blog" class="headerlink" title="这是一篇测试blog"></a>这是一篇测试blog</h1><p>主要测试标签和分类功能的使用<br><img src= "/img/loading.gif" data-lazy-src="http://a1.att.hudong.com/11/28/300000764046130888288666357.jpg" alt="风景"></p>
 ]]></content>
       <categories>
         <category>demo</category>
