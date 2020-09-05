@@ -1,33 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello World</title>
-    <url>/2020/08/15/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>我的第一篇blog</title>
-    <url>/2020/08/15/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87blog/</url>
-    <content><![CDATA[<h1 id="这是一篇测试blog"><a href="#这是一篇测试blog" class="headerlink" title="这是一篇测试blog"></a>这是一篇测试blog</h1><p>主要测试标签和分类功能的使用<br><img src= "/img/loading.gif" data-lazy-src="http://a1.att.hudong.com/11/28/300000764046130888288666357.jpg" alt="风景"></p>
+    <title>初探javaScript</title>
+    <url>/2020/09/05/js/</url>
+    <content><![CDATA[<h1 id="JavaScript输出"><a href="#JavaScript输出" class="headerlink" title="JavaScript输出"></a>JavaScript输出</h1><p>JavaScript通过下面方式输出数据   </p>
+<ul>
+<li>使用 window.alert() 弹出警告框。</li>
+<li>使用 document.write() 方法将内容写到 HTML 文档中   <blockquote>
+<p>如果在文档已完成加载后执行 document.write，整个 HTML 页面将被覆盖。  </p>
+</blockquote>
+</li>
+<li>使用 innerHTML 写入到 HTML 元素。  </li>
+<li>使用 console.log() 写入到浏览器的控制台。  <h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=<span class="string">&quot;en&quot;</span>&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=<span class="string">&quot;UTF-8&quot;</span>&gt;</span><br><span class="line">    &lt;meta name=<span class="string">&quot;viewport&quot;</span> content=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span><br><span class="line">    &lt;title&gt;我的第一个javacript&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;h1&gt;我是一个标题&lt;/h1&gt;</span><br><span class="line">&lt;p&gt;我是第一段文字&lt;/p&gt;</span><br><span class="line">&lt;!-- 弹出警告框--&gt;</span><br><span class="line">&lt;script&gt;<span class="built_in">window</span>.alert(<span class="string">&quot;error:请刷新页面&quot;</span>)&lt;/script&gt;</span><br><span class="line">&lt;!-- 替换第二段文字--&gt;</span><br><span class="line">&lt;p id=<span class="string">&quot;demo&quot;</span>&gt;我是第二段文字,我tm要没了&lt;/p&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">&quot;demo&quot;</span>).innerHTML=<span class="string">&quot;我tm是新的第二段文字&quot;</span></span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;!-- 写入到 HTML 元素。--&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="built_in">document</span>.write(<span class="built_in">Date</span>())</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;br/&gt;</span><br><span class="line">&lt;!-- 整个 HTML 页面将被覆盖--&gt;</span><br><span class="line">&lt;button onclick=<span class="string">&quot;clickme()&quot;</span>&gt;点我点我&lt;/button&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">clickme</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">document</span>.write(<span class="built_in">Date</span>())</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;!-- 写入到浏览器的控制台--&gt;</span><br><span class="line">&lt;p&gt;使用F12查看&lt;/p&gt;</span><br><span class="line">&lt;script&gt;<span class="built_in">console</span>.log(<span class="string">&quot;error:请关闭控制台😉🐱‍🏍&quot;</span>)&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 ]]></content>
       <categories>
-        <category>demo</category>
+        <category>学习笔记</category>
       </categories>
       <tags>
-        <tag>markdown学习</tag>
+        <tag>JavaScript学习</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>three.js学习笔记</title>
+    <url>/2020/08/31/three-js-learn/</url>
+    <content><![CDATA[]]></content>
   </entry>
 </search>
