@@ -25,7 +25,7 @@
   <entry>
     <title>OpenCV学习</title>
     <url>/2020/09/21/opencv/</url>
-    <content><![CDATA[<h1 id="读取、显示和保存图片"><a href="#读取、显示和保存图片" class="headerlink" title="读取、显示和保存图片"></a>读取、显示和保存图片</h1><h2 id="读取图片"><a href="#读取图片" class="headerlink" title="读取图片"></a>读取图片</h2><p><code>cv2.imread(&#39;图像名称&#39;，&#39;可选参数&#39;)</code>  </p>
+    <content><![CDATA[<h1 id="读取、显示和保存图片"><a href="#读取、显示和保存图片" class="headerlink" title="读取、显示和保存图片"></a>读取、显示和保存图片</h1><h2 id="读取图片"><a href="#读取图片" class="headerlink" title="读取图片"></a>读取图片</h2><pre><code>cv2.imread(&#39;图像名称&#39;，&#39;可选参数&#39;)   </code></pre>
 <h3 id="可选参数决定读入图像的模式："><a href="#可选参数决定读入图像的模式：" class="headerlink" title="可选参数决定读入图像的模式："></a>可选参数决定读入图像的模式：</h3><ul>
 <li>0：读入的为灰度图像（即使图像为彩色的）</li>
 <li>1：读入的图像为彩色的（默认） <h2 id="显示图片"><a href="#显示图片" class="headerlink" title="显示图片"></a>显示图片</h2></li>
@@ -33,12 +33,11 @@
 <ol>
 <li>使用OpenCV方式显示<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">cv2.imshow(<span class="string">&#x27;input image&#x27;</span>,src)</span><br><span class="line">cv2.waitKey(<span class="number">0</span>)</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure></li>
 <li>使用matplotlib库包中的pyplot子包来显示  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</span><br><span class="line">plt.imshow(img, <span class="string">&#x27;gray&#x27;</span>) <span class="comment">#必须规定为显示的为什么图像</span></span><br><span class="line">plt.xticks([]),plt.yticks([]) <span class="comment">#隐藏坐标线 </span></span><br><span class="line">plt.show() <span class="comment">#显示出来，不要也可以，但是一般都要了</span></span><br></pre></td></tr></table></figure>
-<h2 id="保存图片"><a href="#保存图片" class="headerlink" title="保存图片"></a>保存图片</h2><code>cv2.imwrite(&quot;保存路径&quot;, src)</code>  <h3 id="imwrite的第三个参数"><a href="#imwrite的第三个参数" class="headerlink" title="imwrite的第三个参数"></a>imwrite的第三个参数</h3></li>
+<h2 id="保存图片"><a href="#保存图片" class="headerlink" title="保存图片"></a>保存图片</h2> cv2.imwrite(“保存路径”, src)  <h3 id="imwrite的第三个参数"><a href="#imwrite的第三个参数" class="headerlink" title="imwrite的第三个参数"></a>imwrite的第三个参数</h3></li>
 </ol>
 <ul>
-<li><p>对于JPEG，其表示的是图像的质量，用0-100的整数表示，默认为95。 注意，cv2.IMWRITE_JPEG_QUALITY类型为Long，必须转换成int。<br><code>cv2.imwrite(&quot;保存路径&quot;, src,[int(cv2.IMWRITE_JPEG_QUALITY), 5])</code></p>
-</li>
-<li><p>对于PNG，第三个参数表示的是压缩级别。cv2.IMWRITE_PNG_COMPRESSION，从0到9,压缩级别越高，图像尺寸越小。默认级别为3。<br><code>cv2.imwrite(&quot;保存路径&quot;, src, [int(cv2.IMWRITE_PNG_COMPRESSION), 9])</code></p>
+<li>对于JPEG，其表示的是图像的质量，用0-100的整数表示，默认为95。 注意，cv2.IMWRITE_JPEG_QUALITY类型为Long，必须转换成int。<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">cv2.imwrite(<span class="string">&quot;保存路径&quot;</span>, src,[int(cv2.IMWRITE_JPEG_QUALITY), <span class="number">5</span>])</span><br></pre></td></tr></table></figure></li>
+<li>对于PNG，第三个参数表示的是压缩级别。cv2.IMWRITE_PNG_COMPRESSION，从0到9,压缩级别越高，图像尺寸越小。默认级别为3。<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">cv2.imwrite(<span class="string">&quot;保存路径&quot;</span>, src, [int(cv2.IMWRITE_PNG_COMPRESSION), <span class="number">9</span>])</span><br></pre></td></tr></table></figure>
 <h2 id="代码如下"><a href="#代码如下" class="headerlink" title="代码如下"></a>代码如下</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2 <span class="keyword">as</span> cv</span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="comment">#读取图片</span></span><br><span class="line">src =cv.imread(<span class="string">&quot;D:/1.jpg&quot;</span>,<span class="number">1</span>) </span><br><span class="line">cv.namedWindow(<span class="string">&quot;input image&quot;</span>,cv.WINDOW_AUTOSIZE)</span><br><span class="line"><span class="comment">#用cv2显示图片</span></span><br><span class="line">cv.imshow(<span class="string">&quot;input image&quot;</span>,src)</span><br><span class="line">cv.waitKey(<span class="number">0</span>)</span><br><span class="line">cv.destroyAllWindows()</span><br><span class="line"><span class="comment">#用plt显示图片</span></span><br><span class="line">plt.imshow(src, <span class="string">&#x27;gray&#x27;</span>)</span><br><span class="line">plt.xticks([]),plt.yticks([])</span><br><span class="line">plt.show()</span><br><span class="line"><span class="comment">#保存图片</span></span><br><span class="line">cv.imwrite(<span class="string">&quot;D:/demo.jpg&quot;</span>, src,[int(cv.IMWRITE_JPEG_QUALITY), <span class="number">100</span>])</span><br></pre></td></tr></table></figure></li>
 </ul>
 ]]></content>
