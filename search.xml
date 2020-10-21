@@ -1,6 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>深度学习</title>
+    <url>/2020/10/21/deeplearning/</url>
+    <content><![CDATA[<h1 id="概论"><a href="#概论" class="headerlink" title="概论"></a>概论</h1><p>计算机视觉  </p>
+<blockquote>
+<p>CNN:卷积神经网络    </p>
+</blockquote>
+<p>序列数据，如音频(一维时间序列)  </p>
+<blockquote>
+<p>RNN:循环神经网络<br>RNNS：更复杂的循环神经网络  </p>
+</blockquote>
+<p><img src="https://s1.ax1x.com/2020/10/21/BCFxwF.png" alt="样例图"><br>结构化数据与非结构化数据<br><img src="https://s1.ax1x.com/2020/10/21/BCkbAe.png" alt="结构化数据与非结构化数据 "></p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>deep learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Docker</title>
+    <url>/2020/10/21/docker/</url>
+    <content><![CDATA[<h1 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h1><h2 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h2><p>系统版本：Ubuntu20.04<br>官方文档：<a href="https://docs.docker.com/engine/install/ubuntu/">https://docs.docker.com/engine/install/ubuntu/</a></p>
+<ol>
+<li><p>卸载旧版本(如没有则跳过)<br><code>sudo apt-get remove docker docker-engine docker.io containerd runc </code></p>
+</li>
+<li><p>更新apt并下载相关包  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt-get update  </span><br><span class="line"></span><br><span class="line">sudo apt-get install \</span><br><span class="line">apt-transport-https \</span><br><span class="line">ca-certificates \</span><br><span class="line">curl \</span><br><span class="line">gnupg-agent \</span><br><span class="line">software-properties-common</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加Docker官方GPG key<br><code>curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -</code>  </p>
+</li>
+<li><p>验证你拥有了key<br><code>sudo apt-key fingerprint 0EBFCD88</code></p>
+</li>
+</ol>
+<blockquote>
+<p>pub   rsa4096 2017-02-22 [SCEA]<br>    9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88<br>uid                 [ unknown] Docker Release (CE deb) <a href="mailto:&#100;&#111;&#99;&#x6b;&#101;&#x72;&#64;&#100;&#x6f;&#x63;&#x6b;&#101;&#114;&#x2e;&#x63;&#x6f;&#109;">&#100;&#111;&#99;&#x6b;&#101;&#x72;&#64;&#100;&#x6f;&#x63;&#x6b;&#101;&#114;&#x2e;&#x63;&#x6f;&#109;</a><br>sub   rsa4096 2017-02-22 [S]    </p>
+</blockquote>
+<ol start="5">
+<li><p>使用以下命令设置稳定存储库。(这里为x86_64/amd64)   </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo add-apt-repository \</span><br><span class="line">&quot;deb [arch&#x3D;amd64] https:&#x2F;&#x2F;download.docker.com&#x2F;linux&#x2F;ubuntu \</span><br><span class="line">$(lsb_release -cs) \</span><br><span class="line">stable&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装最新版Docker   r</p>
+<pre><code>sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io</code></pre>
+<blockquote>
+<p>也可指定版本  </p>
+</blockquote>
+</li>
+</ol>
+<p><code>apt-cache madison docker-ce  </code>   </p>
+<blockquote>
+<p>docker-ce | 5:18.09.1<del>3-0</del>ubuntu-xenial | <a href="https://download.docker.com/linux/ubuntu">https://download.docker.com/linux/ubuntu</a>  xenial/stable amd64 Packages<br>  docker-ce | 5:18.09.0<del>3-0</del>ubuntu-xenial | <a href="https://download.docker.com/linux/ubuntu">https://download.docker.com/linux/ubuntu</a>  xenial/stable amd64 Packages<br>  docker-ce | 18.06.1<del>ce</del>3-0<del>ubuntu       | <a href="https://download.docker.com/linux/ubuntu">https://download.docker.com/linux/ubuntu</a>  xenial/stable amd64 Packages<br>  docker-ce | 18.06.0</del>ce<del>3-0</del>ubuntu       | <a href="https://download.docker.com/linux/ubuntu">https://download.docker.com/linux/ubuntu</a>  xenial/stable amd64 Packages<br>  …    </p>
+</blockquote>
+<p><code>sudo apt-get install docker-ce=&lt;VERSION_STRING&gt; docker-ce-cli=&lt;VERSION_STRING&gt; containerd.io</code></p>
+<blockquote>
+<p>例如<br><code>sudo apt-get install docker-ce=&lt;5:18.09.1~3-0~ubuntu-xenial&gt; docker-ce-cli=&lt;5:18.09.1~3-0~ubuntu-xenial&gt; containerd.io</code>     </p>
+</blockquote>
+<ol start="7">
+<li>通过运行hello-world映像，验证Docker引擎已正确安装。<br><code>sudo docker run hello-world</code><br><img src="assets/hello.png" alt="hello-world">  </li>
+<li>设置开机自启<br><code>sudo systemctl enable docker</code><br>关闭开机自启<br><code>sudo systemctl disable docker</code>   </li>
+<li>查看Docker运行情况<br><code>sudo systemctl status docker</code></li>
+</ol>
+]]></content>
+      <categories>
+        <category>项目开发基础</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>初探JavaScript</title>
     <url>/2020/09/05/js/</url>
     <content><![CDATA[<h1 id="JavaScript输出"><a href="#JavaScript输出" class="headerlink" title="JavaScript输出"></a>JavaScript输出</h1><p>JavaScript通过下面方式输出数据   </p>
