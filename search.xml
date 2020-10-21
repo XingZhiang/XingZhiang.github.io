@@ -36,7 +36,7 @@
 </li>
 </ol>
 <blockquote>
-<p>pub   rsa4096 2017-02-22 [SCEA]<br>    9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88<br>uid                 [ unknown] Docker Release (CE deb) <a href="mailto:&#100;&#111;&#99;&#x6b;&#101;&#x72;&#64;&#100;&#x6f;&#x63;&#x6b;&#101;&#114;&#x2e;&#x63;&#x6f;&#109;">&#100;&#111;&#99;&#x6b;&#101;&#x72;&#64;&#100;&#x6f;&#x63;&#x6b;&#101;&#114;&#x2e;&#x63;&#x6f;&#109;</a><br>sub   rsa4096 2017-02-22 [S]    </p>
+<p>pub   rsa4096 2017-02-22 [SCEA]<br>    9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88<br>uid                 [ unknown] Docker Release (CE deb) <a href="mailto:&#100;&#111;&#99;&#107;&#x65;&#x72;&#x40;&#x64;&#111;&#99;&#107;&#101;&#x72;&#x2e;&#99;&#111;&#109;">&#100;&#111;&#99;&#107;&#x65;&#x72;&#x40;&#x64;&#111;&#99;&#107;&#101;&#x72;&#x2e;&#99;&#111;&#109;</a><br>sub   rsa4096 2017-02-22 [S]    </p>
 </blockquote>
 <ol start="5">
 <li><p>使用以下命令设置稳定存储库。(这里为x86_64/amd64)   </p>
@@ -59,7 +59,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io</code></pre>
 <p>例如<br><code>sudo apt-get install docker-ce=&lt;5:18.09.1~3-0~ubuntu-xenial&gt; docker-ce-cli=&lt;5:18.09.1~3-0~ubuntu-xenial&gt; containerd.io</code>     </p>
 </blockquote>
 <ol start="7">
-<li>通过运行hello-world映像，验证Docker引擎已正确安装。<br><code>sudo docker run hello-world</code><br><img src="assets/hello.png" alt="hello-world">  </li>
+<li>通过运行hello-world映像，验证Docker引擎已正确安装。<br><code>sudo docker run hello-world</code><br><img src="https://s1.ax1x.com/2020/10/21/BPN3VS.png" alt="hello-world">  </li>
 <li>设置开机自启<br><code>sudo systemctl enable docker</code><br>关闭开机自启<br><code>sudo systemctl disable docker</code>   </li>
 <li>查看Docker运行情况<br><code>sudo systemctl status docker</code></li>
 </ol>
