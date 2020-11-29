@@ -109,26 +109,6 @@
       </tags>
   </entry>
   <entry>
-    <title>深度学习</title>
-    <url>/2020/10/21/deeplearning/</url>
-    <content><![CDATA[<h1 id="概论"><a href="#概论" class="headerlink" title="概论"></a>概论</h1><p>计算机视觉  </p>
-<blockquote>
-<p>CNN:卷积神经网络    </p>
-</blockquote>
-<p>序列数据，如音频(一维时间序列)  </p>
-<blockquote>
-<p>RNN:循环神经网络<br>RNNS：更复杂的循环神经网络  </p>
-</blockquote>
-<p><img src="https://s1.ax1x.com/2020/10/21/BCFxwF.png" alt="样例图"><br>结构化数据与非结构化数据<br><img src="https://s1.ax1x.com/2020/10/21/BCkbAe.png" alt="结构化数据与非结构化数据 "></p>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>deep learning</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>计算机组成与设计(硬件/软件接口)</title>
     <url>/2020/11/13/computer-organization/</url>
     <content><![CDATA[<h1 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h1><h2 id="计算应用的分类与其特性"><a href="#计算应用的分类与其特性" class="headerlink" title="计算应用的分类与其特性"></a>计算应用的分类与其特性</h2><p>计算机主要包括以下三类应用：  </p>
@@ -191,7 +171,7 @@
 </li>
 </ol>
 <blockquote>
-<p>pub   rsa4096 2017-02-22 [SCEA]<br>    9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88<br>uid                 [ unknown] Docker Release (CE deb) <a href="mailto:&#x64;&#x6f;&#x63;&#x6b;&#x65;&#114;&#64;&#100;&#x6f;&#99;&#x6b;&#101;&#x72;&#x2e;&#99;&#111;&#x6d;">&#x64;&#x6f;&#x63;&#x6b;&#x65;&#114;&#64;&#100;&#x6f;&#99;&#x6b;&#101;&#x72;&#x2e;&#99;&#111;&#x6d;</a><br>sub   rsa4096 2017-02-22 [S]    </p>
+<p>pub   rsa4096 2017-02-22 [SCEA]<br>    9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88<br>uid                 [ unknown] Docker Release (CE deb) <a href="mailto:&#100;&#111;&#x63;&#x6b;&#101;&#x72;&#x40;&#100;&#x6f;&#99;&#107;&#x65;&#114;&#x2e;&#99;&#111;&#x6d;">&#100;&#111;&#x63;&#x6b;&#101;&#x72;&#x40;&#100;&#x6f;&#99;&#107;&#x65;&#114;&#x2e;&#99;&#111;&#x6d;</a><br>sub   rsa4096 2017-02-22 [S]    </p>
 </blockquote>
 <ol start="5">
 <li>使用以下命令设置稳定存储库。(这里为x86_64/amd64)   </li>
@@ -438,6 +418,26 @@
       </categories>
       <tags>
         <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>深度学习</title>
+    <url>/2020/10/21/deeplearning/</url>
+    <content><![CDATA[<h1 id="概论"><a href="#概论" class="headerlink" title="概论"></a>概论</h1><p>计算机视觉  </p>
+<blockquote>
+<p>CNN:卷积神经网络    </p>
+</blockquote>
+<p>序列数据，如音频(一维时间序列)  </p>
+<blockquote>
+<p>RNN:循环神经网络<br>RNNS：更复杂的循环神经网络  </p>
+</blockquote>
+<p><img src="https://s1.ax1x.com/2020/10/21/BCFxwF.png" alt="样例图"><br>结构化数据与非结构化数据<br><img src="https://s1.ax1x.com/2020/10/21/BCkbAe.png" alt="结构化数据与非结构化数据 "></p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>deep learning</tag>
       </tags>
   </entry>
   <entry>
