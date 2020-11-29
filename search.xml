@@ -1,6 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Kubernetes入门</title>
+    <url>/2020/11/29/Kubernetes/</url>
+    <content><![CDATA[<h1 id="什么是Kubernetes？"><a href="#什么是Kubernetes？" class="headerlink" title="什么是Kubernetes？"></a>什么是Kubernetes？</h1><p>Kubernetes 是一个可移植的、可扩展的开源平台，用于管理容器化的工作负载和服务，可促进声明式配置和自动化。 Kubernetes 拥有一个庞大且快速增长的生态系统。Kubernetes 的服务、支持和工具广泛可用。    </p>
+<h2 id="为什么需要k8s？"><a href="#为什么需要k8s？" class="headerlink" title="为什么需要k8s？"></a>为什么需要k8s？</h2><p>容器是打包和运行应用程序的好方式。在生产环境中，你需要管理运行应用程序的容器，并确保不会停机。 例如，如果一个容器发生故障，则需要启动另一个容器。如果系统处理此行为，会不会更容易？</p>
+<p>这就是 Kubernetes 来解决这些问题的方法！ Kubernetes 为你提供了一个可弹性运行分布式系统的框架。 Kubernetes 会满足你的扩展要求、故障转移、部署模式等。 例如，Kubernetes 可以轻松管理系统的 Canary 部署。</p>
+<p>Kubernetes 为你提供：</p>
+<ul>
+<li><p>服务发现和负载均衡<br>Kubernetes 可以使用 DNS 名称或自己的 IP 地址公开容器，如果进入容器的流量很大， Kubernetes 可以负载均衡并分配网络流量，从而使部署稳定。</p>
+</li>
+<li><p>存储编排<br>Kubernetes 允许你自动挂载你选择的存储系统，例如本地存储、公共云提供商等。</p>
+</li>
+<li><p>自动部署和回滚<br>你可以使用 Kubernetes 描述已部署容器的所需状态，它可以以受控的速率将实际状态 更改为期望状态。例如，你可以自动化 Kubernetes 来为你的部署创建新容器， 删除现有容器并将它们的所有资源用于新容器。</p>
+</li>
+<li><p>自动完成装箱计算<br>Kubernetes 允许你指定每个容器所需 CPU 和内存（RAM）。 当容器指定了资源请求时，Kubernetes 可以做出更好的决策来管理容器的资源。</p>
+</li>
+<li><p>自我修复<br>Kubernetes 重新启动失败的容器、替换容器、杀死不响应用户定义的 运行状况检查的容器，并且在准备好服务之前不将其通告给客户端。     </p>
+</li>
+</ul>
+<p>以上内容转自k8s官方文档：<a href="https://kubernetes.io/zh/docs/concepts/overview/what-is-kubernetes/#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81-kubernetes-%E5%AE%83%E8%83%BD%E5%81%9A%E4%BB%80%E4%B9%88">https://kubernetes.io/zh/docs/concepts/overview/what-is-kubernetes/#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81-kubernetes-%E5%AE%83%E8%83%BD%E5%81%9A%E4%BB%80%E4%B9%88</a>       </p>
+<h1 id="k8s架构组件"><a href="#k8s架构组件" class="headerlink" title="k8s架构组件"></a>k8s架构组件</h1><p><img src="https://d33wubrfki0l68.cloudfront.net/2475489eaf20163ec0f54ddc1d92aa8d4c87c96b/e7c81/images/docs/components-of-kubernetes.svg" alt="完整架构图"><br>部分详解：   </p>
+<h2 id="控制平面组件（Control-Plane-Components）"><a href="#控制平面组件（Control-Plane-Components）" class="headerlink" title="控制平面组件（Control Plane Components）"></a>控制平面组件（Control Plane Components）</h2><p>即master node</p>
+<h3 id="kube-apiserver"><a href="#kube-apiserver" class="headerlink" title="kube-apiserver"></a>kube-apiserver</h3><p>API 服务器是 Kubernetes 控制面的组件， 该组件公开了 Kubernetes API。 API 服务器是 Kubernetes 控制面的前端。</p>
+<p>Kubernetes API 服务器的主要实现是 kube-apiserver。 kube-apiserver 设计上考虑了水平伸缩，也就是说，它可通过部署多个实例进行伸缩。 你可以运行 kube-apiserver 的多个实例，并在这些实例之间平衡流量。     </p>
+<blockquote>
+<p>集群统一入口，以restful风格进行操作，同时交给etcd存储<br>提供认证、授权、访问控制、API注册和发现等机制     </p>
+</blockquote>
+<h3 id="etcd"><a href="#etcd" class="headerlink" title="etcd"></a>etcd</h3><p>etcd 是兼具一致性和高可用性的键值数据库，可以作为保存 Kubernetes 所有集群数据的后台数据库。     </p>
+<blockquote>
+<p>存储系统，用于保存集群中的相关数据    </p>
+</blockquote>
+<h3 id="kube-scheduler"><a href="#kube-scheduler" class="headerlink" title="kube-scheduler"></a>kube-scheduler</h3><p>主节点上的组件，该组件监视那些新创建的未指定运行节点的 Pod，并选择节点让 Pod 在上面运行。</p>
+<p>调度决策考虑的因素包括单个 Pod 和 Pod 集合的资源需求、硬件/软件/策略约束、亲和性和反亲和性规范、数据位置、工作负载间的干扰和最后时限。   </p>
+<blockquote>
+<p>节点的调度，选择node节点应用部署          </p>
+</blockquote>
+<h3 id="kube-controller-manager"><a href="#kube-controller-manager" class="headerlink" title="kube-controller-manager"></a>kube-controller-manager</h3><p>在主节点上运行控制器的组件。  </p>
+<p>从逻辑上讲，每个控制器都是一个单独的进程，但是为了降低复杂性，它们都被编译到同一个可执行文件，并在一个进程中运行。  </p>
+<p>这些控制器包括:</p>
+<ul>
+<li>节点控制器（Node Controller）: 负责在节点出现故障时进行通知和响应。</li>
+<li>副本控制器（Replication Controller）: 负责为系统中的每个副本控制器对象维护正确数量的 Pod。</li>
+<li>端点控制器（Endpoints Controller）: 填充端点(Endpoints)对象(即加入 Service 与 Pod)。<br>服务帐户和令牌控制器（Service Account &amp; Token Controllers）: 为新的命名空间创建默认帐户和 API 访问令牌.   </li>
+</ul>
+<blockquote>
+<p>处理集群中常规后台任务，一个资源对应一个控制器    </p>
+</blockquote>
+<h3 id="cloud-controller-manager"><a href="#cloud-controller-manager" class="headerlink" title="cloud-controller-manager"></a>cloud-controller-manager</h3><p>云控制器管理器是 1.8 的 alpha 特性。在未来发布的版本中，这是将 Kubernetes 与任何其他云集成的最佳方式。<br>cloud-controller-manager 仅运行特定于云平台的控制回路。 如果你在自己的环境中运行 Kubernetes，或者在本地计算机中运行学习环境， 所部署的环境中不需要云控制器管理器。</p>
+<p>与 kube-controller-manager 类似，cloud-controller-manager 将若干逻辑上独立的 控制回路组合到同一个可执行文件中，供你以同一进程的方式运行。 你可以对其执行水平扩容（运行不止一个副本）以提升性能或者增强容错能力。</p>
+<p>下面的控制器都包含对云平台驱动的依赖：</p>
+<ul>
+<li>节点控制器（Node Controller）: 用于在节点终止响应后检查云提供商以确定节点是否已被删除</li>
+<li>路由控制器（Route Controller）: 用于在底层云基础架构中设置路由</li>
+<li>服务控制器（Service Controller）: 用于创建、更新和删除云提供商负载均衡器    </li>
+</ul>
+<h2 id="Node组件"><a href="#Node组件" class="headerlink" title="Node组件"></a>Node组件</h2><p>节点组件在每个节点上运行，维护运行的 Pod 并提供 Kubernetes 运行环境。   </p>
+<h3 id="kubelet"><a href="#kubelet" class="headerlink" title="kubelet"></a>kubelet</h3><p>一个在集群中每个节点上运行的代理。它保证容器都运行在 Pod 中。</p>
+<p>kubelet 接收一组通过各类机制提供给它的 PodSpecs，确保这些 PodSpecs 中描述的容器处于运行状态且健康。kubelet 不会管理不是由 Kubernetes 创建的容器。      </p>
+<h3 id="kube-proxy"><a href="#kube-proxy" class="headerlink" title="kube-proxy"></a>kube-proxy</h3><p>kube-proxy 是集群中每个节点上运行的网络代理,实现 Kubernetes Service 概念的一部分。</p>
+<p>kube-proxy 维护节点上的网络规则。这些网络规则允许从集群内部或外部的网络会话与 Pod 进行网络通信。</p>
+<p>如果操作系统提供了数据包过滤层并可用的话，kube-proxy会通过它来实现网络规则。否则，kube-proxy 仅转发流量本身。     </p>
+<h2 id="容器运行时（Container-Runtime）"><a href="#容器运行时（Container-Runtime）" class="headerlink" title="容器运行时（Container Runtime）"></a>容器运行时（Container Runtime）</h2><p>容器运行环境是负责运行容器的软件。</p>
+<p>Kubernetes 支持多个容器运行环境: docker、 containerd、CRI-O 以及任何实现 Kubernetes CRI (容器运行环境接口)。      </p>
+<h1 id="k8s核心概念"><a href="#k8s核心概念" class="headerlink" title="k8s核心概念"></a>k8s核心概念</h1><h2 id="Pod"><a href="#Pod" class="headerlink" title="Pod"></a>Pod</h2><ul>
+<li>Pod是K8s中最小部署单元</li>
+<li>一组容器的集合</li>
+<li>共享网络【一个Pod中的所有容器共享同一网络】</li>
+<li>生命周期是短暂的（服务器重启后，就找不到了）</li>
+</ul>
+<h2 id="controller"><a href="#controller" class="headerlink" title="controller"></a>controller</h2><ul>
+<li>确保预期的pod副本数量【ReplicaSet】</li>
+<li>无状态应用部署【Depoltment】,无状态就是指，不需要依赖于网络或者ip</li>
+<li>有状态应用部署【StatefulSet】,有状态需要特定的条件</li>
+<li>确保所有的node运行同一个pod 【DaemonSet】</li>
+<li>一次性任务和定时任务【Job和CronJob】</li>
+</ul>
+<h2 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h2><ul>
+<li>定义一组pod的访问规则</li>
+<li>Pod的负载均衡，提供一个或多个Pod的稳定访问地址</li>
+<li>支持多种方式【ClusterIP、NodePort、LoadBalancer】    </li>
+</ul>
+<h1 id="搭建k8s集群"><a href="#搭建k8s集群" class="headerlink" title="搭建k8s集群"></a>搭建k8s集群</h1><h2 id="搭建k8s环境平台规划"><a href="#搭建k8s环境平台规划" class="headerlink" title="搭建k8s环境平台规划"></a>搭建k8s环境平台规划</h2><ul>
+<li>单master集群<br><img src="https://s3.ax1x.com/2020/11/29/DgKzgx.png" alt="单master集群">      </li>
+<li>多master集群<br><img src="https://s3.ax1x.com/2020/11/29/DgM4de.png" alt="DgM4de.png">   </li>
+</ul>
+<h2 id="硬件要求"><a href="#硬件要求" class="headerlink" title="硬件要求"></a>硬件要求</h2><p>测试环境   </p>
+<ul>
+<li>master<br>2核 4G 20G   </li>
+<li>Node<br>4核 8G 40G  </li>
+</ul>
+<h2 id="搭载k8s集群部署方式"><a href="#搭载k8s集群部署方式" class="headerlink" title="搭载k8s集群部署方式"></a>搭载k8s集群部署方式</h2><p>目前搭建k8s集群主要有两种方式：kuberadm和二进制包   </p>
+<ul>
+<li>kuberadm<br>kubeadm是官方社区推出的一个用于快速部署kubernetes集群的工具。    </li>
+</ul>
+<p>这个工具能通过两条指令完成一个kubernetes集群的部署： </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建一个 Master 节点  </span></span><br><span class="line">kubeadm init  </span><br><span class="line">  </span><br><span class="line"><span class="meta">#</span><span class="bash"> 将一个 Node 节点加入到当前集群中   </span></span><br><span class="line">kubeadm join &lt;Master节点的IP和端口 &gt;   </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>二进制包<br>从github下载发行版的二进制包，手动部署每个组件，组成Kubernetes集群。    </li>
+</ul>
+<h3 id="使用kuberadm搭建k8s集群"><a href="#使用kuberadm搭建k8s集群" class="headerlink" title="使用kuberadm搭建k8s集群"></a>使用kuberadm搭建k8s集群</h3>]]></content>
+      <categories>
+        <category>项目开发基础</category>
+      </categories>
+      <tags>
+        <tag>Kubernetes</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>深度学习</title>
     <url>/2020/10/21/deeplearning/</url>
     <content><![CDATA[<h1 id="概论"><a href="#概论" class="headerlink" title="概论"></a>概论</h1><p>计算机视觉  </p>
@@ -83,7 +191,7 @@
 </li>
 </ol>
 <blockquote>
-<p>pub   rsa4096 2017-02-22 [SCEA]<br>    9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88<br>uid                 [ unknown] Docker Release (CE deb) <a href="mailto:&#x64;&#x6f;&#x63;&#x6b;&#x65;&#114;&#x40;&#100;&#x6f;&#x63;&#x6b;&#101;&#114;&#x2e;&#x63;&#x6f;&#109;">&#x64;&#x6f;&#x63;&#x6b;&#x65;&#114;&#x40;&#100;&#x6f;&#x63;&#x6b;&#101;&#114;&#x2e;&#x63;&#x6f;&#109;</a><br>sub   rsa4096 2017-02-22 [S]    </p>
+<p>pub   rsa4096 2017-02-22 [SCEA]<br>    9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88<br>uid                 [ unknown] Docker Release (CE deb) <a href="mailto:&#x64;&#x6f;&#x63;&#x6b;&#x65;&#114;&#64;&#100;&#x6f;&#99;&#x6b;&#101;&#x72;&#x2e;&#99;&#111;&#x6d;">&#x64;&#x6f;&#x63;&#x6b;&#x65;&#114;&#64;&#100;&#x6f;&#99;&#x6b;&#101;&#x72;&#x2e;&#99;&#111;&#x6d;</a><br>sub   rsa4096 2017-02-22 [S]    </p>
 </blockquote>
 <ol start="5">
 <li>使用以下命令设置稳定存储库。(这里为x86_64/amd64)   </li>
@@ -344,6 +452,28 @@
       </tags>
   </entry>
   <entry>
+    <title>初探JavaScript</title>
+    <url>/2020/09/05/js/</url>
+    <content><![CDATA[<h1 id="JavaScript输出"><a href="#JavaScript输出" class="headerlink" title="JavaScript输出"></a>JavaScript输出</h1><p>JavaScript通过下面方式输出数据   </p>
+<ul>
+<li>使用 window.alert() 弹出警告框。</li>
+<li>使用 document.write() 方法将内容写到 HTML 文档中   <blockquote>
+<p>如果在文档已完成加载后执行 document.write，整个 HTML 页面将被覆盖。  </p>
+</blockquote>
+</li>
+<li>使用 innerHTML 写入到 HTML 元素。  </li>
+<li>使用 console.log() 写入到浏览器的控制台。  <h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=<span class="string">&quot;en&quot;</span>&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=<span class="string">&quot;UTF-8&quot;</span>&gt;</span><br><span class="line">    &lt;meta name=<span class="string">&quot;viewport&quot;</span> content=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span><br><span class="line">    &lt;title&gt;我的第一个javacript&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;h1&gt;我是一个标题&lt;/h1&gt;</span><br><span class="line">&lt;p&gt;我是第一段文字&lt;/p&gt;</span><br><span class="line">&lt;!-- 弹出警告框--&gt;</span><br><span class="line">&lt;script&gt;<span class="built_in">window</span>.alert(<span class="string">&quot;error:请刷新页面&quot;</span>)&lt;/script&gt;</span><br><span class="line">&lt;!-- 替换第二段文字--&gt;</span><br><span class="line">&lt;p id=<span class="string">&quot;demo&quot;</span>&gt;我是第二段文字,我tm要没了&lt;/p&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">&quot;demo&quot;</span>).innerHTML=<span class="string">&quot;我tm是新的第二段文字&quot;</span></span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;!-- 写入到 HTML 元素。--&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="built_in">document</span>.write(<span class="built_in">Date</span>())</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;br/&gt;</span><br><span class="line">&lt;!-- 整个 HTML 页面将被覆盖--&gt;</span><br><span class="line">&lt;button onclick=<span class="string">&quot;clickme()&quot;</span>&gt;点我点我&lt;/button&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">clickme</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">document</span>.write(<span class="built_in">Date</span>())</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;!-- 写入到浏览器的控制台--&gt;</span><br><span class="line">&lt;p&gt;使用F12查看&lt;/p&gt;</span><br><span class="line">&lt;script&gt;<span class="built_in">console</span>.log(<span class="string">&quot;error:请关闭控制台😉🐱‍🏍&quot;</span>)&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>JavaScript学习</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>OpenCV学习</title>
     <url>/2020/09/21/opencv/</url>
     <content><![CDATA[<h1 id="读取、显示和保存图片"><a href="#读取、显示和保存图片" class="headerlink" title="读取、显示和保存图片"></a>读取、显示和保存图片</h1><h2 id="读取图片"><a href="#读取图片" class="headerlink" title="读取图片"></a>读取图片</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">cv2.imread(<span class="string">&#x27;图像名称&#x27;</span>，<span class="string">&#x27;可选参数&#x27;</span>)   </span><br></pre></td></tr></table></figure>
@@ -399,28 +529,6 @@
       </categories>
       <tags>
         <tag>OpenCV学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>初探JavaScript</title>
-    <url>/2020/09/05/js/</url>
-    <content><![CDATA[<h1 id="JavaScript输出"><a href="#JavaScript输出" class="headerlink" title="JavaScript输出"></a>JavaScript输出</h1><p>JavaScript通过下面方式输出数据   </p>
-<ul>
-<li>使用 window.alert() 弹出警告框。</li>
-<li>使用 document.write() 方法将内容写到 HTML 文档中   <blockquote>
-<p>如果在文档已完成加载后执行 document.write，整个 HTML 页面将被覆盖。  </p>
-</blockquote>
-</li>
-<li>使用 innerHTML 写入到 HTML 元素。  </li>
-<li>使用 console.log() 写入到浏览器的控制台。  <h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=<span class="string">&quot;en&quot;</span>&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=<span class="string">&quot;UTF-8&quot;</span>&gt;</span><br><span class="line">    &lt;meta name=<span class="string">&quot;viewport&quot;</span> content=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span><br><span class="line">    &lt;title&gt;我的第一个javacript&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;h1&gt;我是一个标题&lt;/h1&gt;</span><br><span class="line">&lt;p&gt;我是第一段文字&lt;/p&gt;</span><br><span class="line">&lt;!-- 弹出警告框--&gt;</span><br><span class="line">&lt;script&gt;<span class="built_in">window</span>.alert(<span class="string">&quot;error:请刷新页面&quot;</span>)&lt;/script&gt;</span><br><span class="line">&lt;!-- 替换第二段文字--&gt;</span><br><span class="line">&lt;p id=<span class="string">&quot;demo&quot;</span>&gt;我是第二段文字,我tm要没了&lt;/p&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">&quot;demo&quot;</span>).innerHTML=<span class="string">&quot;我tm是新的第二段文字&quot;</span></span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;!-- 写入到 HTML 元素。--&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="built_in">document</span>.write(<span class="built_in">Date</span>())</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;br/&gt;</span><br><span class="line">&lt;!-- 整个 HTML 页面将被覆盖--&gt;</span><br><span class="line">&lt;button onclick=<span class="string">&quot;clickme()&quot;</span>&gt;点我点我&lt;/button&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">clickme</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">document</span>.write(<span class="built_in">Date</span>())</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;!-- 写入到浏览器的控制台--&gt;</span><br><span class="line">&lt;p&gt;使用F12查看&lt;/p&gt;</span><br><span class="line">&lt;script&gt;<span class="built_in">console</span>.log(<span class="string">&quot;error:请关闭控制台😉🐱‍🏍&quot;</span>)&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>JavaScript学习</tag>
       </tags>
   </entry>
   <entry>
