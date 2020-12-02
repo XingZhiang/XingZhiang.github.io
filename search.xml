@@ -1,6 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>计算机组成与设计(硬件/软件接口)</title>
+    <url>/2020/11/13/computer-organization/</url>
+    <content><![CDATA[<h1 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h1><h2 id="计算应用的分类与其特性"><a href="#计算应用的分类与其特性" class="headerlink" title="计算应用的分类与其特性"></a>计算应用的分类与其特性</h2><p>计算机主要包括以下三类应用：  </p>
+<ol>
+<li><p>个人计算机<br>个人计算机强调为单用户提供良好的性能，价格低廉，通常运行第三方软件   </p>
+</li>
+<li><p>服务器<br>过去被称为大型机的现代形式，通常借助网络访问。服务器适用于执行大负载任务，可以执行单个复杂应用(科学的或工程的)，也可以处理大量的简单作业，如大型Web服务器。这些应用通常基于其他第三方软件(如数据库和仿真软件)，并且往往为了特别的需要而加以修改和定制。   </p>
+<blockquote>
+<p>服务器：用于多用户运行大型程序的计算机，通常由多个用户并行使用，并且一般通过网络访问   </p>
+</blockquote>
+</li>
+<li><p>嵌入式计算机<br>数量最多的一类计算机。嵌入式计算机系统的设计目标是运行单一应用程序或者一组相关的应用程序，并且通常和硬件集成在一起以单一系统的方式一并交给用户。<br>面对单一应用需求的嵌入式应用通常对成本和功耗有着严格限制。除此之外，降低成本和功耗是最大目标。嵌入式开发对故障非常敏感。   </p>
+<h2 id="后PC时代"><a href="#后PC时代" class="headerlink" title="后PC时代"></a>后PC时代</h2></li>
+</ol>
+<ul>
+<li>个人移动设备(Personal Mobile Device,PMD):连接到网络上的小型无线设备。PMD由电池供电，通过下载APP的方式安装软件。智能手机和平板电脑就是典型的PMD。  </li>
+<li>云计算(colud computing):云计算代替了传统服务器，它依赖于称为<strong>仓储规模计算机</strong>(Warehouse Scale Computer,WSC)的举行数据中心。通过云计算实现的<strong>软件即服务</strong>(Software as a Service,SaaS)是软件工业的一次革命。     <blockquote>
+<p>云计算：在网络上提供服务的大服务器集群，一些运营商根据应用需求出租不同数量的服务器。<br>软件即服务：在网络上以服务方式提供软件和数据。其运行方式通常不是在本地设备上运行所有二进制代码，而是通过诸如运行在本地服务器的浏览器等小程序登陆到远端服务器上执行。典型例子是Web搜索和社交网络。   </p>
+</blockquote>
+</li>
+</ul>
+<h2 id="计算机系统结构中的8个伟大思想"><a href="#计算机系统结构中的8个伟大思想" class="headerlink" title="计算机系统结构中的8个伟大思想"></a>计算机系统结构中的8个伟大思想</h2><h3 id="面向摩尔定律的设计"><a href="#面向摩尔定律的设计" class="headerlink" title="面向摩尔定律的设计"></a>面向摩尔定律的设计</h3><p>计算机设计者面临的一个永恒的问题就是摩尔定律驱动的快速变化。摩尔定律（英语：ore’s law）是由英特尔创始人之一戈登·摩尔提出的。其内容为：集成电路上可容纳的晶体管数目，约每隔18~24个月便会增加一倍。由于计算机设计者设计需要画几年时间，因此在项目结束时，单芯片的集成度相对于设计开始时很容易翻上一番，因此计算机设计者必须预测其设计完成时的工艺水平，而不是设计开始时的。    </p>
+<h3 id="使用抽象简化设计"><a href="#使用抽象简化设计" class="headerlink" title="使用抽象简化设计"></a>使用抽象简化设计</h3><p>提高硬件和软件生产率的主要技术之一是使用<strong>抽象</strong>来表示不同的设计层次，在高层次中看不到低层次的细节，只能看到一个简化的模型。  </p>
+<h3 id="加速大概率事件"><a href="#加速大概率事件" class="headerlink" title="加速大概率事件"></a>加速大概率事件</h3><p>加速大概率事件远比优化小概率事件跟能提高性能。大概率事件通常比小概率事件简单，从而易于提升。大概率事件规则意味着设计者需要知道什么事件是经常发生的，这只有经过仔细地实验和评估才能得到。   </p>
+<h3 id="通过并行提高性能"><a href="#通过并行提高性能" class="headerlink" title="通过并行提高性能"></a>通过并行提高性能</h3><h3 id="通过流水线提高性能"><a href="#通过流水线提高性能" class="headerlink" title="通过流水线提高性能"></a>通过流水线提高性能</h3><h3 id="通过预测提高性能"><a href="#通过预测提高性能" class="headerlink" title="通过预测提高性能"></a>通过预测提高性能</h3><h3 id="存储器层次"><a href="#存储器层次" class="headerlink" title="存储器层次"></a>存储器层次</h3><h3 id="通过冗余提高可靠性"><a href="#通过冗余提高可靠性" class="headerlink" title="通过冗余提高可靠性"></a>通过冗余提高可靠性</h3><h2 id="程序概念入门"><a href="#程序概念入门" class="headerlink" title="程序概念入门"></a>程序概念入门</h2><p>计算机中的硬件只能执行极为简单的低级指令。从复杂应用程序到简单的指令需要经过几个软件层次来将复杂的高层次操作逐渐解释或翻译成简单的计算机指令，这可以作为<strong>抽象</strong>思想的一个例子。<br>下图给出了这些软件的层次结构，外层是应用软件，中间是硬件，<strong>系统软件</strong>位于两者之间。  </p>
+<blockquote>
+<p>系统软件：提供常用服务的软件，包括操作系统、编译程序、加载程序和汇编程序的。    </p>
+</blockquote>
+<p><img src="https://s3.ax1x.com/2020/11/13/D9KU9s.png" alt="简化的硬件软件层次图"><br>系统软件有很多种，其中两种对于现代计算机系统来说是必需的：操作系统和汇编程序。<br><strong>操作系统</strong>是用户程序和硬件的接口，为用户提供各种服务和监控功能。<br><strong>编译程序</strong>：将高级语言翻译成计算机所能识别的机器语言的程序。   </p>
+<h3 id="从高级语言到硬件语言"><a href="#从高级语言到硬件语言" class="headerlink" title="从高级语言到硬件语言"></a>从高级语言到硬件语言</h3><p>汇编程序：将指令由助记符形式翻译成二进制形式的程序。<br>汇编语言：以助记符形式表示的机器指令。<br>机器语言：以二进制形式表示的机器指令集。  </p>
+<blockquote>
+<p>助记符（mnemonic）是便于人们记忆、并能描述指令功能和指令操作数的符号，助记符是表明指令功能的英语单词或其缩写。<br>汇编语言由于采用了助记符号来编写程序，比用机器语言的二进制代码编程要方便些，在一定程度上简化了编程过程。汇编语言的特点是用符号代替了机器指令代码，而且助记符与指令代码一一对应，基本保留了机器语言的灵活性。使用汇编语言能面向机器并较好地发挥机器的特性，得到质量较高的程序。</p>
+</blockquote>
+<p><strong>高级编程语言</strong>及其编译程序的出现大大地提高了软件的生产率。这是<strong>抽象</strong>的另一个例子<br>下图表示了程序语言之间的关系<br><img src="https://s3.ax1x.com/2020/11/13/D9K4u6.png" alt="程序语言之间的关系 "></p>
+<h2 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h2><p>响应时间：也叫执行时间，是计算机完成某个任务所需的总时间，包括磁盘访问、内存访问、I/O活动、操作系统开销和CPU执行时间。<br>吞吐量：也称带宽，性能的另一参考参数，表示单位时间内完成的任务的数量。  </p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>计算机组成原理</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Kubernetes入门</title>
     <url>/2020/11/29/Kubernetes/</url>
     <content><![CDATA[<h1 id="什么是Kubernetes？"><a href="#什么是Kubernetes？" class="headerlink" title="什么是Kubernetes？"></a>什么是Kubernetes？</h1><p>Kubernetes 是一个可移植的、可扩展的开源平台，用于管理容器化的工作负载和服务，可促进声明式配置和自动化。 Kubernetes 拥有一个庞大且快速增长的生态系统。Kubernetes 的服务、支持和工具广泛可用。    </p>
@@ -100,56 +144,73 @@
 <ul>
 <li>二进制包<br>从github下载发行版的二进制包，手动部署每个组件，组成Kubernetes集群。    </li>
 </ul>
-<h3 id="使用kuberadm搭建k8s集群"><a href="#使用kuberadm搭建k8s集群" class="headerlink" title="使用kuberadm搭建k8s集群"></a>使用kuberadm搭建k8s集群</h3>]]></content>
+<h3 id="使用kuberadm搭建k8s集群"><a href="#使用kuberadm搭建k8s集群" class="headerlink" title="使用kuberadm搭建k8s集群"></a>使用kuberadm搭建k8s集群</h3><ol>
+<li>使用2台以上服务器（或虚拟机）   </li>
+<li>对操作系统进行初始化操作   </li>
+</ol>
+<pre><code class="shell"># 关闭防火墙
+systemctl stop firewalld
+systemctl disable firewalld
+
+# 关闭selinux
+# 永久关闭
+sed -i &#39;s/enforcing/disabled/&#39; /etc/selinux/config  
+# 临时关闭
+setenforce 0  
+
+# 关闭swap
+# 临时
+swapoff -a 
+# 永久关闭
+sed -ri &#39;s/.*swap.*/#&amp;/&#39; /etc/fstab
+
+# 根据规划设置主机名【master节点上操作】
+hostnamectl set-hostname k8smaster
+# 根据规划设置主机名【node1节点操作】
+hostnamectl set-hostname k8snode1
+
+# 在master添加hosts
+# 这里为你的ip
+cat &gt;&gt; /etc/hosts &lt;&lt; EOF
+39.102.44.60 k8smaster
+10.0.4.246 k8snode
+EOF
+
+
+# 将桥接的IPv4流量传递到iptables的链
+cat &gt; /etc/sysctl.d/k8s.conf &lt;&lt; EOF
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+EOF
+# 生效
+sysctl --system  
+
+# 时间同步
+apt install ntpdate -y
+ntpdate time.windows.com   </code></pre>
+<ol start="3">
+<li><p>安装Docker<br>见上一篇博客     </p>
+</li>
+<li><p>添加kubernetes软件源<br>配置ubuntu的k8s软件源   </p>
+</li>
+</ol>
+<pre><code class="shell">curl -s https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt-key add -
+cat &lt;&lt;EOF &gt;/etc/apt/sources.list.d/kubernetes.list
+deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main
+EOF</code></pre>
+<ol start="5">
+<li>安装kubeadm，kubelet和kubectl    </li>
+</ol>
+<pre><code class="shell"># 安装kubelet、kubeadm、kubectl
+apt-get install -y kubelet kubeadm kubectl  
+# 设置开机启动
+systemctl enable kubelet      </code></pre>
+]]></content>
       <categories>
         <category>项目开发基础</category>
       </categories>
       <tags>
         <tag>Kubernetes</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>计算机组成与设计(硬件/软件接口)</title>
-    <url>/2020/11/13/computer-organization/</url>
-    <content><![CDATA[<h1 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h1><h2 id="计算应用的分类与其特性"><a href="#计算应用的分类与其特性" class="headerlink" title="计算应用的分类与其特性"></a>计算应用的分类与其特性</h2><p>计算机主要包括以下三类应用：  </p>
-<ol>
-<li><p>个人计算机<br>个人计算机强调为单用户提供良好的性能，价格低廉，通常运行第三方软件   </p>
-</li>
-<li><p>服务器<br>过去被称为大型机的现代形式，通常借助网络访问。服务器适用于执行大负载任务，可以执行单个复杂应用(科学的或工程的)，也可以处理大量的简单作业，如大型Web服务器。这些应用通常基于其他第三方软件(如数据库和仿真软件)，并且往往为了特别的需要而加以修改和定制。   </p>
-<blockquote>
-<p>服务器：用于多用户运行大型程序的计算机，通常由多个用户并行使用，并且一般通过网络访问   </p>
-</blockquote>
-</li>
-<li><p>嵌入式计算机<br>数量最多的一类计算机。嵌入式计算机系统的设计目标是运行单一应用程序或者一组相关的应用程序，并且通常和硬件集成在一起以单一系统的方式一并交给用户。<br>面对单一应用需求的嵌入式应用通常对成本和功耗有着严格限制。除此之外，降低成本和功耗是最大目标。嵌入式开发对故障非常敏感。   </p>
-<h2 id="后PC时代"><a href="#后PC时代" class="headerlink" title="后PC时代"></a>后PC时代</h2></li>
-</ol>
-<ul>
-<li>个人移动设备(Personal Mobile Device,PMD):连接到网络上的小型无线设备。PMD由电池供电，通过下载APP的方式安装软件。智能手机和平板电脑就是典型的PMD。  </li>
-<li>云计算(colud computing):云计算代替了传统服务器，它依赖于称为<strong>仓储规模计算机</strong>(Warehouse Scale Computer,WSC)的举行数据中心。通过云计算实现的<strong>软件即服务</strong>(Software as a Service,SaaS)是软件工业的一次革命。     <blockquote>
-<p>云计算：在网络上提供服务的大服务器集群，一些运营商根据应用需求出租不同数量的服务器。<br>软件即服务：在网络上以服务方式提供软件和数据。其运行方式通常不是在本地设备上运行所有二进制代码，而是通过诸如运行在本地服务器的浏览器等小程序登陆到远端服务器上执行。典型例子是Web搜索和社交网络。   </p>
-</blockquote>
-</li>
-</ul>
-<h2 id="计算机系统结构中的8个伟大思想"><a href="#计算机系统结构中的8个伟大思想" class="headerlink" title="计算机系统结构中的8个伟大思想"></a>计算机系统结构中的8个伟大思想</h2><h3 id="面向摩尔定律的设计"><a href="#面向摩尔定律的设计" class="headerlink" title="面向摩尔定律的设计"></a>面向摩尔定律的设计</h3><p>计算机设计者面临的一个永恒的问题就是摩尔定律驱动的快速变化。摩尔定律（英语：ore’s law）是由英特尔创始人之一戈登·摩尔提出的。其内容为：集成电路上可容纳的晶体管数目，约每隔18~24个月便会增加一倍。由于计算机设计者设计需要画几年时间，因此在项目结束时，单芯片的集成度相对于设计开始时很容易翻上一番，因此计算机设计者必须预测其设计完成时的工艺水平，而不是设计开始时的。    </p>
-<h3 id="使用抽象简化设计"><a href="#使用抽象简化设计" class="headerlink" title="使用抽象简化设计"></a>使用抽象简化设计</h3><p>提高硬件和软件生产率的主要技术之一是使用<strong>抽象</strong>来表示不同的设计层次，在高层次中看不到低层次的细节，只能看到一个简化的模型。  </p>
-<h3 id="加速大概率事件"><a href="#加速大概率事件" class="headerlink" title="加速大概率事件"></a>加速大概率事件</h3><p>加速大概率事件远比优化小概率事件跟能提高性能。大概率事件通常比小概率事件简单，从而易于提升。大概率事件规则意味着设计者需要知道什么事件是经常发生的，这只有经过仔细地实验和评估才能得到。   </p>
-<h3 id="通过并行提高性能"><a href="#通过并行提高性能" class="headerlink" title="通过并行提高性能"></a>通过并行提高性能</h3><h3 id="通过流水线提高性能"><a href="#通过流水线提高性能" class="headerlink" title="通过流水线提高性能"></a>通过流水线提高性能</h3><h3 id="通过预测提高性能"><a href="#通过预测提高性能" class="headerlink" title="通过预测提高性能"></a>通过预测提高性能</h3><h3 id="存储器层次"><a href="#存储器层次" class="headerlink" title="存储器层次"></a>存储器层次</h3><h3 id="通过冗余提高可靠性"><a href="#通过冗余提高可靠性" class="headerlink" title="通过冗余提高可靠性"></a>通过冗余提高可靠性</h3><h2 id="程序概念入门"><a href="#程序概念入门" class="headerlink" title="程序概念入门"></a>程序概念入门</h2><p>计算机中的硬件只能执行极为简单的低级指令。从复杂应用程序到简单的指令需要经过几个软件层次来将复杂的高层次操作逐渐解释或翻译成简单的计算机指令，这可以作为<strong>抽象</strong>思想的一个例子。<br>下图给出了这些软件的层次结构，外层是应用软件，中间是硬件，<strong>系统软件</strong>位于两者之间。  </p>
-<blockquote>
-<p>系统软件：提供常用服务的软件，包括操作系统、编译程序、加载程序和汇编程序的。    </p>
-</blockquote>
-<p><img src="https://s3.ax1x.com/2020/11/13/D9KU9s.png" alt="简化的硬件软件层次图"><br>系统软件有很多种，其中两种对于现代计算机系统来说是必需的：操作系统和汇编程序。<br><strong>操作系统</strong>是用户程序和硬件的接口，为用户提供各种服务和监控功能。<br><strong>编译程序</strong>：将高级语言翻译成计算机所能识别的机器语言的程序。   </p>
-<h3 id="从高级语言到硬件语言"><a href="#从高级语言到硬件语言" class="headerlink" title="从高级语言到硬件语言"></a>从高级语言到硬件语言</h3><p>汇编程序：将指令由助记符形式翻译成二进制形式的程序。<br>汇编语言：以助记符形式表示的机器指令。<br>机器语言：以二进制形式表示的机器指令集。  </p>
-<blockquote>
-<p>助记符（mnemonic）是便于人们记忆、并能描述指令功能和指令操作数的符号，助记符是表明指令功能的英语单词或其缩写。<br>汇编语言由于采用了助记符号来编写程序，比用机器语言的二进制代码编程要方便些，在一定程度上简化了编程过程。汇编语言的特点是用符号代替了机器指令代码，而且助记符与指令代码一一对应，基本保留了机器语言的灵活性。使用汇编语言能面向机器并较好地发挥机器的特性，得到质量较高的程序。</p>
-</blockquote>
-<p><strong>高级编程语言</strong>及其编译程序的出现大大地提高了软件的生产率。这是<strong>抽象</strong>的另一个例子<br>下图表示了程序语言之间的关系<br><img src="https://s3.ax1x.com/2020/11/13/D9K4u6.png" alt="程序语言之间的关系 "></p>
-<h2 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h2><p>响应时间：也叫执行时间，是计算机完成某个任务所需的总时间，包括磁盘访问、内存访问、I/O活动、操作系统开销和CPU执行时间。<br>吞吐量：也称带宽，性能的另一参考参数，表示单位时间内完成的任务的数量。  </p>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>计算机组成原理</tag>
       </tags>
   </entry>
   <entry>
@@ -171,7 +232,7 @@
 </li>
 </ol>
 <blockquote>
-<p>pub   rsa4096 2017-02-22 [SCEA]<br>    9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88<br>uid                 [ unknown] Docker Release (CE deb) <a href="mailto:&#100;&#111;&#x63;&#x6b;&#101;&#x72;&#x40;&#100;&#x6f;&#99;&#107;&#x65;&#114;&#x2e;&#99;&#111;&#x6d;">&#100;&#111;&#x63;&#x6b;&#101;&#x72;&#x40;&#100;&#x6f;&#99;&#107;&#x65;&#114;&#x2e;&#99;&#111;&#x6d;</a><br>sub   rsa4096 2017-02-22 [S]    </p>
+<p>pub   rsa4096 2017-02-22 [SCEA]<br>    9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88<br>uid                 [ unknown] Docker Release (CE deb) <a href="mailto:&#100;&#x6f;&#x63;&#107;&#x65;&#114;&#64;&#x64;&#x6f;&#99;&#107;&#x65;&#x72;&#46;&#x63;&#111;&#109;">&#100;&#x6f;&#x63;&#107;&#x65;&#114;&#64;&#x64;&#x6f;&#99;&#107;&#x65;&#x72;&#46;&#x63;&#111;&#109;</a><br>sub   rsa4096 2017-02-22 [S]    </p>
 </blockquote>
 <ol start="5">
 <li>使用以下命令设置稳定存储库。(这里为x86_64/amd64)   </li>
