@@ -105,63 +105,24 @@
 <li>使用2台以上服务器（或虚拟机）   </li>
 <li>对操作系统进行初始化操作   </li>
 </ol>
-<pre><code class="shell"># 关闭防火墙
-systemctl stop firewalld
-systemctl disable firewalld
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 关闭防火墙</span></span><br><span class="line">systemctl stop firewalld</span><br><span class="line">systemctl disable firewalld</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 关闭selinux</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 永久关闭</span></span><br><span class="line">sed -i &#x27;s/enforcing/disabled/&#x27; /etc/selinux/config  </span><br><span class="line"><span class="meta">#</span><span class="bash"> 临时关闭</span></span><br><span class="line">setenforce 0  </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 关闭swap</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 临时</span></span><br><span class="line">swapoff -a </span><br><span class="line"><span class="meta">#</span><span class="bash"> 永久关闭</span></span><br><span class="line">sed -ri &#x27;s/.*swap.*/#&amp;/&#x27; /etc/fstab</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 根据规划设置主机名【master节点上操作】</span></span><br><span class="line">hostnamectl set-hostname k8smaster</span><br><span class="line"><span class="meta">#</span><span class="bash"> 根据规划设置主机名【node1节点操作】</span></span><br><span class="line">hostnamectl set-hostname k8snode1</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 在master添加hosts</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 这里为你的ip</span></span><br><span class="line">cat &gt;&gt; /etc/hosts &lt;&lt; EOF</span><br><span class="line">39.102.44.60 k8smaster</span><br><span class="line">10.0.4.246 k8snode</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 将桥接的IPv4流量传递到iptables的链</span></span><br><span class="line">cat &gt; /etc/sysctl.d/k8s.conf &lt;&lt; EOF</span><br><span class="line">net.bridge.bridge-nf-call-ip6tables = 1</span><br><span class="line">net.bridge.bridge-nf-call-iptables = 1</span><br><span class="line">EOF</span><br><span class="line"><span class="meta">#</span><span class="bash"> 生效</span></span><br><span class="line">sysctl --system  </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 时间同步</span></span><br><span class="line">apt install ntpdate -y</span><br><span class="line">ntpdate time.windows.com   </span><br></pre></td></tr></table></figure>
 
-# 关闭selinux
-# 永久关闭
-sed -i &#39;s/enforcing/disabled/&#39; /etc/selinux/config  
-# 临时关闭
-setenforce 0  
-
-# 关闭swap
-# 临时
-swapoff -a 
-# 永久关闭
-sed -ri &#39;s/.*swap.*/#&amp;/&#39; /etc/fstab
-
-# 根据规划设置主机名【master节点上操作】
-hostnamectl set-hostname k8smaster
-# 根据规划设置主机名【node1节点操作】
-hostnamectl set-hostname k8snode1
-
-# 在master添加hosts
-# 这里为你的ip
-cat &gt;&gt; /etc/hosts &lt;&lt; EOF
-39.102.44.60 k8smaster
-10.0.4.246 k8snode
-EOF
-
-
-# 将桥接的IPv4流量传递到iptables的链
-cat &gt; /etc/sysctl.d/k8s.conf &lt;&lt; EOF
-net.bridge.bridge-nf-call-ip6tables = 1
-net.bridge.bridge-nf-call-iptables = 1
-EOF
-# 生效
-sysctl --system  
-
-# 时间同步
-apt install ntpdate -y
-ntpdate time.windows.com   </code></pre>
 <ol start="3">
 <li><p>安装Docker<br>见上一篇博客     </p>
 </li>
 <li><p>添加kubernetes软件源<br>配置ubuntu的k8s软件源         </p>
 </li>
 </ol>
-<pre><code class="shell">curl -s https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt-key add -
-cat &lt;&lt;EOF &gt;/etc/apt/sources.list.d/kubernetes.list
-deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main
-EOF</code></pre>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl -s https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt-key add -</span><br><span class="line">cat &lt;&lt;EOF &gt;/etc/apt/sources.list.d/kubernetes.list</span><br><span class="line">deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+
 <ol start="5">
-<li>安装kubeadm，kubelet和kubectl           </li>
+<li>安装kubeadm，kubelet和kubectl           <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 安装kubelet、kubeadm、kubectl</span></span><br><span class="line">apt-get install -y kubelet kubeadm kubectl  </span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置开机启动</span></span><br><span class="line">systemctl enable kubelet      </span><br></pre></td></tr></table></figure>
+
+
+
+</li>
 </ol>
-<pre><code class="shell"># 安装kubelet、kubeadm、kubectl
-apt-get install -y kubelet kubeadm kubectl  
-# 设置开机启动
-systemctl enable kubelet      </code></pre>
 ]]></content>
       <categories>
         <category>项目开发基础</category>
@@ -235,6 +196,17 @@ systemctl enable kubelet      </code></pre>
       </tags>
   </entry>
   <entry>
+    <title>Let&#39;s Go</title>
+    <url>/2020/10/29/go/</url>
+    <content><![CDATA[<h1 id="Go语言——面向接口-interface-的程序设计"><a href="#Go语言——面向接口-interface-的程序设计" class="headerlink" title="Go语言——面向接口(interface)的程序设计"></a>Go语言——面向接口(interface)的程序设计</h1>]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Go语言学习</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Docker</title>
     <url>/2020/10/21/docker/</url>
     <content><![CDATA[<h1 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h1><h2 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h2><p>系统版本：Ubuntu20.04<br>官方文档：<a href="https://docs.docker.com/engine/install/ubuntu/">https://docs.docker.com/engine/install/ubuntu/</a></p>
@@ -253,7 +225,7 @@ systemctl enable kubelet      </code></pre>
 </li>
 </ol>
 <blockquote>
-<p>pub   rsa4096 2017-02-22 [SCEA]<br>    9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88<br>uid                 [ unknown] Docker Release (CE deb) <a href="mailto:&#100;&#111;&#x63;&#107;&#x65;&#x72;&#x40;&#x64;&#111;&#x63;&#x6b;&#x65;&#114;&#46;&#x63;&#x6f;&#109;">&#100;&#111;&#x63;&#107;&#x65;&#x72;&#x40;&#x64;&#111;&#x63;&#x6b;&#x65;&#114;&#46;&#x63;&#x6f;&#109;</a><br>sub   rsa4096 2017-02-22 [S]    </p>
+<p>pub   rsa4096 2017-02-22 [SCEA]<br>    9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88<br>uid                 [ unknown] Docker Release (CE deb) <a href="mailto:&#100;&#x6f;&#99;&#x6b;&#x65;&#114;&#x40;&#100;&#111;&#99;&#107;&#x65;&#114;&#46;&#99;&#x6f;&#109;">&#100;&#x6f;&#99;&#x6b;&#x65;&#114;&#x40;&#100;&#111;&#99;&#107;&#x65;&#114;&#46;&#99;&#x6f;&#109;</a><br>sub   rsa4096 2017-02-22 [S]    </p>
 </blockquote>
 <ol start="5">
 <li>使用以下命令设置稳定存储库。(这里为x86_64/amd64)   </li>
@@ -503,17 +475,6 @@ systemctl enable kubelet      </code></pre>
       </tags>
   </entry>
   <entry>
-    <title>Let&#39;s Go</title>
-    <url>/2020/10/29/go/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Go语言学习</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>初探JavaScript</title>
     <url>/2020/09/05/js/</url>
     <content><![CDATA[<h1 id="JavaScript输出"><a href="#JavaScript输出" class="headerlink" title="JavaScript输出"></a>JavaScript输出</h1><p>JavaScript通过下面方式输出数据   </p>
@@ -533,6 +494,357 @@ systemctl enable kubelet      </code></pre>
       </categories>
       <tags>
         <tag>JavaScript学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>matlab.md</title>
+    <url>/2021/01/31/matlab/</url>
+    <content><![CDATA[<h1 id="MATLAB入门"><a href="#MATLAB入门" class="headerlink" title="MATLAB入门"></a>MATLAB入门</h1><h2 id="特殊矩阵"><a href="#特殊矩阵" class="headerlink" title="特殊矩阵"></a>特殊矩阵</h2><ul>
+<li>zeros: 产生全0矩阵，即零矩阵</li>
+<li>ones：产生全1矩阵，即幺矩阵</li>
+<li>eye： 产生对角线为1的矩阵。当矩阵是方阵是，得到一个单位矩阵</li>
+<li>rand: 产生（0，1）区间均匀分布的随机矩阵</li>
+<li>randn: 产生均值为0，方差为1的标准正态分布</li>
+</ul>
+<p>调用格式如下：</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line"><span class="built_in">zeros</span>(m) : 产生m x m的零矩阵</span><br><span class="line"><span class="built_in">zeros</span>(m,n) : 产生m x n的零矩阵</span><br><span class="line"><span class="built_in">zeros</span>（<span class="built_in">size</span>(A)) : 产生与A同样大小的零矩阵</span><br><span class="line"><span class="built_in">fix</span>(a+(b-a+<span class="number">1</span>)*<span class="built_in">rand</span>(m))  : 产生(a,b)区间的均匀分布的随机矩阵</span><br><span class="line">μ + <span class="built_in">sqrt</span>(σ^<span class="number">2</span>)*<span class="built_in">randn</span>(m) : 产生一般正态分布</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>魔方矩阵</p>
+<blockquote>
+<p>M = magic(m)</p>
+<blockquote>
+<p>M = magic(3)</p>
+<p>M = </p>
+<p>​    8    1    6</p>
+<p>​    3    5    7</p>
+<p>​    4    9    2</p>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+<p><img src="..%5Cimg%5Cimage-20210131212721554.png" alt="魔方矩阵性质"></p>
+<p>​       </p>
+<ul>
+<li>范德蒙矩阵</li>
+</ul>
+<blockquote>
+<p>A = vander(1,5)</p>
+</blockquote>
+<p><img src="..%5Cimg%5CQQ%E6%88%AA%E5%9B%BE20210131214040.png" alt="QQ截图20210131214040"></p>
+<ul>
+<li><p>希尔伯特矩阵</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">format rat  #以有理数形式输出</span><br><span class="line">H = <span class="built_in">hilb</span>(<span class="number">4</span>)</span><br><span class="line">H =</span><br><span class="line">       <span class="number">1</span>              <span class="number">1</span>/<span class="number">2</span>            <span class="number">1</span>/<span class="number">3</span>            <span class="number">1</span>/<span class="number">4</span>     </span><br><span class="line">       <span class="number">1</span>/<span class="number">2</span>            <span class="number">1</span>/<span class="number">3</span>            <span class="number">1</span>/<span class="number">4</span>            <span class="number">1</span>/<span class="number">5</span>     </span><br><span class="line">       <span class="number">1</span>/<span class="number">3</span>            <span class="number">1</span>/<span class="number">4</span>            <span class="number">1</span>/<span class="number">5</span>            <span class="number">1</span>/<span class="number">6</span>     </span><br><span class="line">       <span class="number">1</span>/<span class="number">4</span>            <span class="number">1</span>/<span class="number">5</span>            <span class="number">1</span>/<span class="number">6</span>            <span class="number">1</span>/<span class="number">7</span> </span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>伴随矩阵</p>
+<p><img src="..%5Cimg%5CQQ%E6%88%AA%E5%9B%BE20210131214706.png" alt="伴随矩阵"></p>
+</li>
+</ul>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">p=[<span class="number">1</span>,<span class="number">-2</span>,<span class="number">-5</span>,<span class="number">6</span>]</span><br><span class="line">A = <span class="built_in">compan</span>(p)</span><br><span class="line">A =</span><br><span class="line">       <span class="number">2</span>              <span class="number">5</span>             <span class="number">-6</span>       </span><br><span class="line">       <span class="number">1</span>              <span class="number">0</span>              <span class="number">0</span>       </span><br><span class="line">       <span class="number">0</span>              <span class="number">1</span>              <span class="number">0</span>       </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>帕斯卡矩阵</p>
+<p><img src="..%5Cimg%5CQQ%E6%88%AA%E5%9B%BE20210131215109.png" alt="QQ截图20210131215109"></p>
+</li>
+</ul>
+<p><img src="..%5Cimg%5CQQ%E6%88%AA%E5%9B%BE20210131215159.png" alt="QQ截图20210131215159"></p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">format <span class="built_in">rat</span></span><br><span class="line">P = <span class="built_in">pascal</span>(<span class="number">5</span>)</span><br><span class="line">P =</span><br><span class="line">       <span class="number">1</span>              <span class="number">1</span>              <span class="number">1</span>              <span class="number">1</span>              <span class="number">1</span>       </span><br><span class="line">       <span class="number">1</span>              <span class="number">2</span>              <span class="number">3</span>              <span class="number">4</span>              <span class="number">5</span>       </span><br><span class="line">       <span class="number">1</span>              <span class="number">3</span>              <span class="number">6</span>             <span class="number">10</span>             <span class="number">15</span>       </span><br><span class="line">       <span class="number">1</span>              <span class="number">4</span>             <span class="number">10</span>             <span class="number">20</span>             <span class="number">35</span>       </span><br><span class="line">       <span class="number">1</span>              <span class="number">5</span>             <span class="number">15</span>             <span class="number">35</span>             <span class="number">70</span>    </span><br><span class="line">       </span><br><span class="line"> inv(P)</span><br><span class="line"> </span><br><span class="line"><span class="built_in">ans</span> =</span><br><span class="line">       <span class="number">5</span>            <span class="number">-10</span>             <span class="number">10</span>             <span class="number">-5</span>              <span class="number">1</span>       </span><br><span class="line">     <span class="number">-10</span>             <span class="number">30</span>            <span class="number">-35</span>             <span class="number">19</span>             <span class="number">-4</span>       </span><br><span class="line">      <span class="number">10</span>            <span class="number">-35</span>             <span class="number">46</span>            <span class="number">-27</span>              <span class="number">6</span>       </span><br><span class="line">      <span class="number">-5</span>             <span class="number">19</span>            <span class="number">-27</span>             <span class="number">17</span>             <span class="number">-4</span>       </span><br><span class="line">       <span class="number">1</span>             <span class="number">-4</span>              <span class="number">6</span>             <span class="number">-4</span>              <span class="number">1</span>       </span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="矩阵变换"><a href="#矩阵变换" class="headerlink" title="矩阵变换"></a>矩阵变换</h2><ul>
+<li><p>对角阵</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">(<span class="number">1</span>) 提取矩阵A的主对角线元素</span><br><span class="line"><span class="built_in">diag</span>(A) : 提取矩阵A主对角线元素，产生一个列向量</span><br><span class="line"><span class="built_in">diag</span>(A,k) : 提取矩阵A第k条对角线元素，产生一个列向量</span><br><span class="line">(<span class="number">2</span>) 构造对角线元素</span><br><span class="line"><span class="built_in">diag</span>(V) : 以向量V为对角线元素，产生一个对角矩阵</span><br><span class="line"><span class="built_in">diag</span>(V,k) : 以向量V为第k条对角线元素，产生一个对角矩阵</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>三角阵</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">(<span class="number">1</span>) 上三角阵</span><br><span class="line">    <span class="built_in">triu</span>(A) : 提取A的主对角线及以上的元素</span><br><span class="line">    <span class="built_in">triu</span>(A,k) : 提取A的第K条对角线及以上的元素</span><br><span class="line">(<span class="number">2</span>) 下三角阵</span><br><span class="line">    <span class="built_in">tril</span>(A) : 提取A的主对角线及以下的元素</span><br><span class="line">    <span class="built_in">tril</span>(A,k) : 提取A的第K条对角线及以下的元素</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>转置矩阵</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line"><span class="built_in">rot90</span>(A,k) : 将矩阵A逆时针方向旋转<span class="number">90</span>度的k倍，当k为<span class="number">1</span>时可省略</span><br><span class="line"><span class="built_in">fliplr</span>(A) : 对矩阵A实施左右翻转</span><br><span class="line"><span class="built_in">flipud</span>(A) : 对矩阵A实施上下翻转</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>矩阵求逆</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">inv</span><span class="params">(A)</span></span> : 求A的逆矩阵</span><br></pre></td></tr></table></figure>
+
+<p><img src="..%5Cimg%5CQQ%E6%88%AA%E5%9B%BE20210131221456.png" alt="QQ截图20210131221456"></p>
+</li>
+</ul>
+<h2 id="矩阵求值"><a href="#矩阵求值" class="headerlink" title="矩阵求值"></a>矩阵求值</h2><ul>
+<li><p>方阵的行列式</p>
+<p><code>dat(A)</code>   </p>
+</li>
+<li><p>矩阵的秩</p>
+<p><code>rank(A) </code></p>
+</li>
+<li><p>矩阵的迹</p>
+<p> <code>trace(A)</code></p>
+</li>
+<li><p>向量的范数</p>
+<p> <img src="..%5Cimg%5CQQ%E6%88%AA%E5%9B%BE20210131222526.png" alt="QQ截图20210131222526"></p>
+<p><code>norm(A,n)</code></p>
+</li>
+<li><p>矩阵的条件数<br><img src="..%5Cimg%5CQQ%E6%88%AA%E5%9B%BE20210131222919.png" alt="QQ截图20210131222919"></p>
+</li>
+</ul>
+<h2 id="矩阵的特征值和特征向量"><a href="#矩阵的特征值和特征向量" class="headerlink" title="矩阵的特征值和特征向量"></a>矩阵的特征值和特征向量</h2><figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">E = eig(A) :　求矩阵A的全部特征值，构成向量E</span><br><span class="line">[X,D] = eig(A) : 求矩阵A的全部特征值，构成对角阵D，并产生矩阵X，X各列是对应的特征向量</span><br></pre></td></tr></table></figure>
+
+<h2 id="稀疏矩阵"><a href="#稀疏矩阵" class="headerlink" title="稀疏矩阵"></a>稀疏矩阵</h2><h3 id="完全存储"><a href="#完全存储" class="headerlink" title="完全存储"></a>完全存储</h3><h3 id="稀疏存储"><a href="#稀疏存储" class="headerlink" title="稀疏存储"></a>稀疏存储</h3><blockquote>
+<p>存储方式与数据结构一致</p>
+</blockquote>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">sparse(A) : 将A转换为稀疏存储方式</span><br><span class="line">full(A) : 将A转换为完全存储方式</span><br></pre></td></tr></table></figure>
+
+<p><img src="..%5Cimg%5CQQ%E6%88%AA%E5%9B%BE20210201103946.png" alt="QQ截图20210201103946"></p>
+<p><img src="..%5Cimg%5CQQ%E6%88%AA%E5%9B%BE20210201104153.png" alt="QQ截图20210201104153"></p>
+<p><img src="..%5Cimg%5CQQ%E6%88%AA%E5%9B%BE20210201104417.png" alt="QQ截图20210201104417"></p>
+<h2 id="matlab脚本"><a href="#matlab脚本" class="headerlink" title="matlab脚本"></a>matlab脚本</h2><h3 id="顺序结构"><a href="#顺序结构" class="headerlink" title="顺序结构"></a>顺序结构</h3><figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">(<span class="number">1</span>)输入输出</span><br><span class="line">    A = input(提示信息，选项) #与python基本一致</span><br><span class="line">    <span class="built_in">disp</span>(输出项)</span><br><span class="line">(<span class="number">2</span>)程序暂停</span><br><span class="line">    pause(延迟秒数)</span><br></pre></td></tr></table></figure>
+
+<h3 id="选择结构"><a href="#选择结构" class="headerlink" title="选择结构"></a>选择结构</h3><ul>
+<li><p>if语句</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> 条件块</span><br><span class="line">    语句块</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>当条件是矩阵时，如果矩阵非空，且不包含0元素，则条件成立</p>
+</blockquote>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line"><span class="comment">% 单分支</span></span><br><span class="line"><span class="keyword">if</span> 条件</span><br><span class="line">    语句<span class="number">1</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    语句<span class="number">2</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 多分支</span></span><br><span class="line"><span class="keyword">if</span> 条件<span class="number">1</span></span><br><span class="line">    语句<span class="number">1</span></span><br><span class="line"><span class="keyword">elseif</span> 条件<span class="number">2</span></span><br><span class="line">    语句<span class="number">2</span></span><br><span class="line"> 。。。</span><br><span class="line"> <span class="keyword">elseif</span> 条件m</span><br><span class="line">     语句块m</span><br><span class="line"> <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>switch语句</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line"><span class="keyword">switch</span> 表达式</span><br><span class="line">    <span class="keyword">case</span> 结果式<span class="number">1</span></span><br><span class="line">        语句组<span class="number">1</span></span><br><span class="line">    <span class="keyword">case</span> 结果式<span class="number">1</span></span><br><span class="line">        语句组<span class="number">1</span></span><br><span class="line">     。。。</span><br><span class="line">     <span class="keyword">case</span> 结果式m</span><br><span class="line">        语句组m</span><br><span class="line">    <span class="keyword">otherwise</span></span><br><span class="line">        语句组n</span><br><span class="line">    <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h3 id="循环语句"><a href="#循环语句" class="headerlink" title="循环语句"></a>循环语句</h3><ul>
+<li><p>for语句</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> 循环变量=表达式<span class="number">1</span>：表达式<span class="number">2</span>：表达式<span class="number">3</span></span><br><span class="line">循环体语句</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment">%&#123;</span></span><br><span class="line"><span class="comment">表达式1：初值</span></span><br><span class="line"><span class="comment">表达式2：步长</span></span><br><span class="line"><span class="comment">表达式3：终值</span></span><br><span class="line"><span class="comment">%&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> 循环变量=矩阵表达式</span><br><span class="line">    循环体语句</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>while语句</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span> 条件</span><br><span class="line">    循环体语句</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><ul>
+<li><p>匿名函数</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">函数句柄变量=@(匿名函数输入参数)匿名函数表达式</span><br><span class="line">函数句柄变量=@函数名</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<ul>
+<li><p>可调性</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">nargin :　输入实参个数</span><br><span class="line">nargout : 输出实参个数</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>全局变量</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line"><span class="keyword">global</span> 变量名</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="绘图"><a href="#绘图" class="headerlink" title="绘图"></a>绘图</h2><h3 id="二维绘图"><a href="#二维绘图" class="headerlink" title="二维绘图"></a>二维绘图</h3><ul>
+<li>plot函数</li>
+</ul>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line"><span class="built_in">plot</span>(x,y,选项) </span><br><span class="line">x坐标，y坐标</span><br></pre></td></tr></table></figure>
+
+<p><img src="..%5Cimg%5CQQ%E6%88%AA%E5%9B%BE20210201192700.png" alt="QQ截图20210201192700"></p>
+<ul>
+<li><p>fplot函数</p>
+<p><img src="..%5Cimg%5CQQ%E6%88%AA%E5%9B%BE20210201194104.png" alt="QQ截图20210201194104"></p>
+</li>
+</ul>
+<p><img src="..%5Cimg%5CQQ%E6%88%AA%E5%9B%BE20210201195526.png" alt="QQ截图20210201195526"></p>
+<h4 id="图形标注"><a href="#图形标注" class="headerlink" title="图形标注"></a>图形标注</h4><p><img src="..%5Cimg%5CQQ%E6%88%AA%E5%9B%BE20210201195928.png" alt="QQ截图20210201195928"></p>
+<ul>
+<li><p>title </p>
+<p>title(图形标题，属性名，属性值)</p>
+<p> \bf 加粗    \it : 斜体  \rm : 正体</p>
+<p>example：title(‘{\bf y = cos{\omega}t + {\beta}}’)</p>
+<ul>
+<li>Color属性 ： title(‘{\bf y = cos{\omega}t + {\beta}}’，’Color’,’r’)</li>
+<li>FontSize属性 ：title(‘{\bf y = cos{\omega}t + {\beta}}’，’FontSize’,24)</li>
+</ul>
+</li>
+<li><p>xlabel和ylabel</p>
+</li>
+<li><p>text和gtext</p>
+<p>text(x,y,说明) ：  text(1/2*pi,1/2,’\leftarrow sin(x)’)     \leftarrow ：左箭头</p>
+<p>gtext(说明) ： 鼠标定位</p>
+</li>
+<li><p>legend</p>
+<p>legend(图例1，图例2，···) ：   legend(‘sin(x)’,’sin(2<em>x)’,’sin(1/2</em>x)’)</p>
+</li>
+</ul>
+<h4 id="坐标控制"><a href="#坐标控制" class="headerlink" title="坐标控制"></a>坐标控制</h4><ul>
+<li><p>axis函数</p>
+<p>axis equal 均分坐标系</p>
+</li>
+</ul>
+<ul>
+<li><p>加网格和边框</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line"><span class="comment">% 网格</span></span><br><span class="line">grid on</span><br><span class="line">grid off</span><br><span class="line">grid</span><br><span class="line"><span class="comment">% 边框</span></span><br><span class="line">box on</span><br><span class="line">box off</span><br><span class="line">box</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="其他坐标系下的二维曲线图"><a href="#其他坐标系下的二维曲线图" class="headerlink" title="其他坐标系下的二维曲线图"></a>其他坐标系下的二维曲线图</h4><ul>
+<li><p>对数坐标系</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">semilogx(x1,x2,选项<span class="number">1</span>,x2,y2,选项<span class="number">2</span>,···)</span><br><span class="line">semilogy(x1,x2,选项<span class="number">1</span>,x2,y2,选项<span class="number">2</span>,···)</span><br><span class="line">loglog(x1,x2,选项<span class="number">1</span>,x2,y2,选项<span class="number">2</span>,···)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>极坐标</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">polar(theta,rho,选项)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="统计图"><a href="#统计图" class="headerlink" title="统计图"></a>统计图</h4><ul>
+<li><p>条形统计图</p>
+<ul>
+<li><p>条形统计图</p>
+<ul>
+<li><p>bar函数</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">bar(x,y,style)</span><br><span class="line">x = 横坐标 <span class="comment">%可省略</span></span><br><span class="line">y = 数据</span><br><span class="line">style : grouped :簇状分组</span><br><span class="line">        stacked ：堆积分布</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>* 直方图
+
+  &lt;!--hexoPostRenderEscape:&lt;figure class=&quot;highlight matlab&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;% 直角坐标&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;hist(y)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;hist(y,x)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;y = 要统计的数据&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;x = 指定区间的划分方式&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;:hexoPostRenderEscape--&gt;
+
+  &lt;!--hexoPostRenderEscape:&lt;figure class=&quot;highlight matlab&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;% 极坐标&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;rose(theta,x)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;x = 指定区间的划分方式&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;:hexoPostRenderEscape--&gt;</code></pre>
+<ul>
+<li><p>面积类图形</p>
+<ul>
+<li><p>扇形图</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">pie(x,explode)</span><br><span class="line">x = 待统计数据</span><br><span class="line">y = 控制图块显示模式</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>面积图</p>
+<p><code>area(x,explode)</code></p>
+</li>
+</ul>
+</li>
+<li><p>散点图</p>
+<ul>
+<li><p>散点图</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">sactter(x,y,选项,<span class="string">&#x27;filled&#x27;</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>阶梯图</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">stairs</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>杆图</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">stem</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>矢量图</p>
+<ul>
+<li><p>罗盘图</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">compass()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>羽毛图</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">feather()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>箭头图</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">quiver(x,y,u,v)</span><br><span class="line">(x,y)矢量起点 (u,v)指定矢量终点</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="三维图形"><a href="#三维图形" class="headerlink" title="三维图形"></a>三维图形</h3><h4 id="三维曲线"><a href="#三维曲线" class="headerlink" title="三维曲线"></a>三维曲线</h4><ul>
+<li>plot3(x,y,z)</li>
+<li>fplot3(funx,funy,funz,tlims)</li>
+</ul>
+<h4 id="三维曲面"><a href="#三维曲面" class="headerlink" title="三维曲面"></a>三维曲面</h4><h5 id="平面网格数据的生成"><a href="#平面网格数据的生成" class="headerlink" title="平面网格数据的生成"></a>平面网格数据的生成</h5><ul>
+<li><p>利用矩阵运算生成</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">x = <span class="number">2</span>:<span class="number">6</span></span><br><span class="line">y = (<span class="number">3</span>:<span class="number">8</span>)&#x27;</span><br><span class="line">X = <span class="built_in">ones</span>(<span class="built_in">size</span>(y))*x</span><br><span class="line">Y = y*<span class="built_in">ones</span>(<span class="built_in">size</span>(x))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>利用meshgrid()函数生成</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">x = <span class="number">2</span>:<span class="number">6</span></span><br><span class="line">y = (<span class="number">3</span>:<span class="number">8</span>)&#x27;</span><br><span class="line">[X,Y] = <span class="built_in">meshgrid</span>(x,y)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h5 id="绘制三维曲面"><a href="#绘制三维曲面" class="headerlink" title="绘制三维曲面"></a>绘制三维曲面</h5><figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line"><span class="comment">% 绘制网格图形</span></span><br><span class="line">mesh(x,y,z,c)</span><br><span class="line"><span class="comment">% 绘制三维曲面</span></span><br><span class="line">surf(x,y,z,c)</span><br><span class="line"></span><br><span class="line">x,y = 网格坐标矩阵</span><br><span class="line">z = 高度矩阵</span><br><span class="line">c = 指定在不同高度下的曲面高度</span><br><span class="line"></span><br><span class="line"><span class="comment">% 带等高线的三维网格曲线函数 meshc</span></span><br><span class="line"><span class="comment">% 带底座的三维网格曲面函数 meshz</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="标准三维曲面"><a href="#标准三维曲面" class="headerlink" title="标准三维曲面"></a>标准三维曲面</h5><ul>
+<li><p>sphere函数</p>
+<p>[x,y,z] = sphere(n)</p>
+</li>
+<li><p>cylinder函数</p>
+<p>[x,y,z] = cylinder(R,n)</p>
+</li>
+</ul>
+<h4 id="修饰处理"><a href="#修饰处理" class="headerlink" title="修饰处理"></a>修饰处理</h4><h5 id="视点处理"><a href="#视点处理" class="headerlink" title="视点处理"></a>视点处理</h5><p><code>view(方位角，仰角)   或 view(x,y,z)</code></p>
+<h5 id="色彩处理"><a href="#色彩处理" class="headerlink" title="色彩处理"></a>色彩处理</h5><p>色彩向量[r,g,b]</p>
+<ul>
+<li><p>色图</p>
+<p>colormap cmapname</p>
+<p>colormap(cmap)</p>
+</li>
+</ul>
+<p><img src="..%5Cimg%5CQQ%E6%88%AA%E5%9B%BE20210204201517.png" alt="QQ截图20210204201517"></p>
+<ul>
+<li><p>自定义色图</p>
+<blockquote>
+<p>创建一个灰色系列色图矩阵</p>
+<p>c = [0,0.2,0.4,0.6,0.8,1]’;</p>
+<p>cmap = [c,c,c];</p>
+<p>surf(peaks)</p>
+<p>colormap(cmap)</p>
+</blockquote>
+</li>
+<li><p>三维图形表面的着色</p>
+</li>
+</ul>
+<p>  <img src="..%5Cimg%5CQQ%E6%88%AA%E5%9B%BE20210204202047.png" alt="QQ截图20210204202047"></p>
+<h5 id="图形的裁剪"><a href="#图形的裁剪" class="headerlink" title="图形的裁剪"></a>图形的裁剪</h5><p>把值赋为NAN</p>
+]]></content>
+      <categories>
+        <category>数模</category>
+      </categories>
+      <tags>
+        <tag>matlab</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>团日活动</title>
+    <url>/2021/04/10/party/</url>
+    <content><![CDATA[<h1 id="团日活动"><a href="#团日活动" class="headerlink" title="团日活动"></a>团日活动</h1><p><img src="http://xzalab.xyz:8888/images/2021/04/10/6bcb464f477d14cf632e1b29915445ee.png" alt="6bcb464f477d14cf632e1b29915445ee.png"></p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>test</tag>
       </tags>
   </entry>
   <entry>
